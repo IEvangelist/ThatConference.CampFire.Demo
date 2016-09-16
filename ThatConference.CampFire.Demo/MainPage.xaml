@@ -1,0 +1,51 @@
+﻿<Page
+    x:Class="ThatConference.CampFire.Demo.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ThatConference.CampFire.Demo"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Loaded="OnLoaded">
+    <Page.Resources>
+        <Storyboard x:Name="_emulateCameraFlashAnimation">
+            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="_preview">
+                <EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+                <EasingDoubleKeyFrame KeyTime="0:0:1.5" Value="1"/>
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    <StackPanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" RequestedTheme="Dark">
+        <CommandBar>
+            <CommandBar.Content>
+                <StackPanel Orientation="Horizontal">
+                    <ProgressRing x:Name="_detectingFaces" Foreground="White" Height="24" Width="24" Margin="6" Padding="12" />
+                    <TextBlock Padding="20,12,6,12" Text="Gender: " />
+                    <TextBlock Padding="12,12,18,12" Text="{Binding Sex}" />
+                    <TextBlock Padding="12,12,6,12" Text="Age: " />
+                    <TextBlock Padding="12,12,18,12" Text="{Binding Age}" />
+                    <TextBlock Padding="12,12,6,12" Text="Glasses: " />
+                    <TextBlock Padding="12" Text="{Binding Glasses}" />
+                    <TextBlock Padding="12,12,6,12" Text="Is smiling: " />
+                    <TextBlock Padding="12" Text="{Binding IsSmiling}" />
+                    <TextBlock Padding="12,12,6,12" Text="Facial Hair: " />
+                    <TextBlock Padding="12" Text="{Binding FacialHair}" />
+                </StackPanel>
+            </CommandBar.Content>
+            <AppBarButton x:Name="_snapButton" Label="Snap" Icon="Camera" Click="SnapButtonClick" />
+            <AppBarSeparator />
+        </CommandBar>       
+
+        <RelativePanel>
+            <CaptureElement FlowDirection="RightToLeft" x:Name="_preview" Margin="2" 
+                            HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <StackPanel x:Name="_resultPanel" RelativePanel.Above="_preview" RelativePanel.AlignHorizontalCenterWith="_preview"
+                        BorderBrush="Black" BorderThickness="4" Background="DarkGray">
+                <TextBlock Text="Hello World"></TextBlock>
+            </StackPanel>
+        </RelativePanel>
+        <ProgressRing x:Name="_progressIndicator" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Height="60" Width="60" />
+
+        <MediaElement x:Name="_sound" Source="/Assets/camera-click.wav" AutoPlay="False" />
+    </StackPanel>
+</Page>
